@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EMI Calculator</title>
+  <style>
+    body {
+      background-color: #007BFF; /* Blue background */
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #0056b3;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e0a800;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>EMI Calculator</h2>
+    <label for="principal">Loan Amount (₹):</label>
+    <input type="number" id="principal" placeholder="Enter loan amount" />
+
+    <label for="rate">Annual Interest Rate (%):</label>
+    <input type="number" id="rate" step="0.01" placeholder="Enter interest rate" />
+
+    <label for="tenure">Tenure (months):</label>
+    <input type="number" id="tenure" placeholder="Enter tenure in months" />
+
+    <button onclick="calculateEMI()">Calculate EMI</button>
+
+    <div class="result" id="emiResult"></div>
+  </div>
+
+  <script>
+    function calculateEMI() {
+      const principal = parseFloat(document.getElementById("principal").value);
+      const rate = parseFloat(document.getElementById("rate").value) / 12 / 100;
+      const tenure = parseInt(document.getElementById("tenure").value);
+
+      if (isNaN(principal) || isNaN(rate) || isNaN(tenure)) {
+        document.getElementById("emiResult").innerText = "Please fill all fields correctly.";
+        return;
+      }
+
+      const emi = (principal * rate * Math.pow(1 + rate, tenure)) / (Math.pow(1 + rate, tenure) - 1);
+      document.getElementById("emiResult").innerText = `Monthly EMI: ₹${emi.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
